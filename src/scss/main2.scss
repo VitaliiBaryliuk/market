@@ -7,6 +7,36 @@
   height: 80px;
   font-family: 'Roboto', sans-serif;
   font-size: 2vw;
+
+  &__logo {
+    margin-left: 5%;
+    color: white;
+    text-shadow: 
+    -0   -2px 0   #000000,
+    0   -2px 0   #000000,
+    -0    2px 0   #000000,
+    0    2px 0   #000000,
+    -2px -0   0   #000000,
+    2px -0   0   #000000,
+    -2px  0   0   #000000,
+    2px  0   0   #000000,
+    -1px -2px 0   #000000,
+    1px -2px 0   #000000,
+    -1px  2px 0   #000000,
+    1px  2px 0   #000000,
+    -2px -1px 0   #000000,
+    2px -1px 0   #000000,
+    -2px  1px 0   #000000,
+    2px  1px 0   #000000,
+    -2px -2px 0   #000000,
+    2px -2px 0   #000000,
+    -2px  2px 0   #000000,
+    2px  2px 0   #000000,
+    -2px -2px 0   #000000,
+    2px -2px 0   #000000,
+    -2px  2px 0   #000000,
+    2px  2px 0   #000000;
+  }
 }
 
 .container {
@@ -69,7 +99,6 @@
   }
 
   &__button-wrapper {
-    // width: 30%;
     height: 15%;
     padding: 5%;
     display: flex;
@@ -78,9 +107,10 @@
   }
 
   &__to-cart-button {
-    padding: 2%;
-    background-color: rgb(0, 214, 171);
+    padding: 10% 30%;
+    background-color: #F59922;
     border-radius: 5%;
+    text-align: center;
   }
   
 }
@@ -124,9 +154,17 @@
   width: 28%;
   display: flex;
   flex-direction: column;
-
+  font-family: 'Roboto', sans-serif;
+  
   &__form {
     display: flex;
     flex-direction: column;
+  }
+
+  &__search-input {
+    width: 250px;
+    height: 30px;
+    border: 2px solid #F59922;
+    border-radius: 5px;
   }
 }
