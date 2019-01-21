@@ -1,6 +1,5 @@
 
 (function landing() {
-
   const products = [
     {
       title: 'C Motorola XOOM™ with Wi-Fi',
@@ -41,14 +40,14 @@
         'images/motorolla3.3.jpg',
         'images/motorolla3.4.jpg',
       ],
-    }
+    },
   ];
 
   function debounce(f, delay) {
     let timers = 0;
-    return function(arg) {
+    return function (arg) {
       clearTimeout(timers);
-      timers = setTimeout(function() {
+      timers = setTimeout(() => {
         f.call(productsList, arg);
       }, delay);
     };
@@ -62,10 +61,10 @@
     }
 
     rander(options) {
-      console.log(options);
+      console.log('rander', options);
       this.parrent.innerHTML = `
       <ul class=""products>
-        ${ options.map(item => `
+        ${options.map(item => `
           <li class="products__item">
           <div class="products__product">
             <div class="products__product-photo-wrapper">
@@ -89,7 +88,7 @@
             </div>
           </div>
         </li>  
-        `).join('') }
+        `).join('')}
       </ul>  
       `;
     }
@@ -106,7 +105,7 @@
     rander() {
       this.parrent.innerHTML = '';
       let temp = '';
-      for( let key of this.busket.entries()) {
+      for (const key of this.busket.entries()) {
         temp += `${key[0].title}, ${key[1]} <br>`;
       }
       this.parrent.innerHTML = `
@@ -149,7 +148,7 @@
 
 
       this.parrent.closest('.container').addEventListener('click', (event) => {
-        if (event.target.classList.contains('products__to-cart-button')) { 
+        if (event.target.classList.contains('products__to-cart-button')) {
           const product = this.itemList.find(a => a.title === event.target.dataset.item);
           const toBusket = this.addToBusket();
           toBusket(product);
@@ -159,11 +158,11 @@
 
     searcMethod(input) {
       this.inp = input.value;
-      let reg = RegExp(input.value, 'i');
-      let res = this.options.filter(a => reg.test(a.title));
+      const reg = RegExp(input.value, 'i');
+      const res = this.options.filter(a => reg.test(a.title));
       this.itemList = res;
-      let thortled = debounce(productsList.rander, 500);
-      thortled(this.itemList);
+      const bounced = debounce(productsList.rander, 500);
+      bounced(this.itemList);
     }
 
     sortMethod(value) {
@@ -198,12 +197,11 @@
 
   const listContainer = document.querySelector('.product-list');
   const productsList = new ProductsList(products, listContainer);
-  productsList.rander(products);
+  // productsList.rander(products);
 
   const sidebar = document.querySelector('.sidebar');
   const sort = new SideBar(products, sidebar);
   sort.rander();
   sort.sortMethod();
   sort.addEvent();
-
 }());

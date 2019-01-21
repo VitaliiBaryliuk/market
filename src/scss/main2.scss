@@ -1,0 +1,132 @@
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #F59922;
+  height: 80px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2vw;
+}
+
+.container {
+  display: flex;
+  padding: 2%;
+  min-height: 1000px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.catalog {
+
+  &__list {
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  &__item {
+    width: 27%;
+    margin: 0 2%;
+    list-style: none;
+    flex-wrap: nowrap;
+  }
+
+  &__product {
+    padding: 4%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+    border: 2px solid #F59922;
+    border-radius: 1%;
+  }
+
+  &__product:hover {
+    box-shadow: 0px 0px 50px 10px rgba(245,153,34,1);  
+  }
+
+  &__product-photo-wrapper {
+    width: 200px;
+    margin-right: 5%;    
+  }
+
+  &__product-photo {
+    width: 100%;
+  }
+
+  &__product-info {
+    margin: 10% 0; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__product-link {
+    text-decoration: none;    
+  }
+
+  &__button-wrapper {
+    // width: 30%;
+    height: 15%;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  &__to-cart-button {
+    padding: 2%;
+    background-color: rgb(0, 214, 171);
+    border-radius: 5%;
+  }
+  
+}
+
+.product {
+  display: none;
+  flex-direction: column;
+  width: 65%;
+
+  &__item {
+    display: flex;
+  }
+
+  &__image-wrapper {
+    width: 30%;
+    padding: 5% 5% 5% 0;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__info {
+    width: 65%;
+    padding-top: 5%;
+  }
+
+  &__gallery {
+    display: flex;
+  }
+
+  &__gallery-image {
+    margin: 3%;
+    width: 15%;
+    height: 15%;
+  }
+
+}
+
+.sidebar {
+  width: 28%;
+  display: flex;
+  flex-direction: column;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+}
