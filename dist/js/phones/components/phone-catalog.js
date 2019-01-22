@@ -43,8 +43,8 @@ export default class PhoneCatalog extends Component {
         <li class="catalog__item" data-phone-id="${phone.id}"  data-element="phone-item">
         <div class="catalog__product">
           <div class="catalog__product-photo-wrapper">
-            <a href="#!phones/${phone.id}" data-element="details-link">
-              <img class="catalog__product-photo" src="${phone.imageUrl}">
+            <a href="#!phones/${phone.id}">
+              <img class="catalog__product-photo" data-element="details-link" src="${phone.imageUrl}">
             </a>
           </div>
           <div class="catalog__product-info">
@@ -58,7 +58,7 @@ export default class PhoneCatalog extends Component {
             </p>
           </div>
           <div class="catalog__button-wrapper">
-          <button class="catalog__to-cart-button" data-element="to-cart">Add</button>
+          <div class="catalog__to-cart-button button to-cart" data-element="to-cart">Add to cart</div>
           </div>
         </div>
       </li>
