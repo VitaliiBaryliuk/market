@@ -3,7 +3,6 @@ import PhoneViewer from './components/phone-viewer.js';
 import ShoppingCart from './components/shopping-cart.js';
 import Filter from './components/filter.js';
 import PhoneService from './services/phone-service.js';
-// import Component from '../component.js';
 
 
 export default class PhonesPage {
@@ -48,7 +47,7 @@ export default class PhonesPage {
         this._catalog.sort(value);
       },
       onSearchKeyDown: (value) => {
-        this._catalog.debounced(value);
+        this._catalog.searchDebounced(value);
       },
     });
   }

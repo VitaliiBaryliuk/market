@@ -13,7 +13,7 @@ export default class PhoneCatalog extends Component {
     this._filtred = phones;
     this.onPhoneSelected = onPhoneSelected;
     this._onAddToCart = onAddToCart;
-    this.debounced = this.debounce(this.search, 500);
+    this.searchDebounced = this.debounce(this.search, 500);
 
     this._render();
 
@@ -86,17 +86,6 @@ export default class PhoneCatalog extends Component {
     const res = this._filtred.filter(a => reg.test(a.name));
     this._phones = res;
     this._render();
-  }
-
-  debounce(f, delay) {
-    let timers = 0;
-
-    return (value) => {
-      clearTimeout(timers);
-      timers = setTimeout(() => {
-        f.call(this, value);
-      }, delay);
-    };
   }
 
 }

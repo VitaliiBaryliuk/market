@@ -1,3 +1,5 @@
+import Component from '../../component.js'
+
 
 export default class Filter {
   constructor({ 
@@ -6,7 +8,7 @@ export default class Filter {
     onSearchKeyDown,
   }) {
     this._element = element;
-    this._onSortChenge = onSortChange;
+    this._onSortChange = onSortChange;
     this._onSearchKeyDown = onSearchKeyDown;
     this._render();
     this._dropdown();
