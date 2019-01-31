@@ -141,6 +141,7 @@ body {
     margin: 15px;
     width: 15%;
     height: 15%;
+    cursor: pointer;
   }
 
   &__buttons {
@@ -187,6 +188,10 @@ body {
     background-position-y: 50%; 
     transform: rotate(180deg);
   } 
+
+  &__dropdown-wrapper {
+    cursor: pointer;
+  }
 
   &__dropdown-item {
     width: 90%;

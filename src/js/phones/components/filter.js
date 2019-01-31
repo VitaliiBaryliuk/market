@@ -1,52 +1,32 @@
 import Component from '../../component.js'
 
 
-export default class Filter {
-  constructor({ 
-    element,
-    onSortChange,
-    onSearchKeyDown,
-  }) {
+export default class Filter extends Component {
+  constructor({ element }) {
+    super(element);
     this._element = element;
-    this._onSortChange = onSortChange;
-    this._onSearchKeyDown = onSearchKeyDown;
     this._render();
     this._dropdown();
 
-
-    this._element.addEventListener('change', (event) => {
-      const sort = document.querySelector('.sidebar__sort');
-
-      if (sort && event.target === sort) {
-        if (!sort) {
-          return;
-        }
-        const value = sort.value;
-        onSortChange(value);
-      }
+    this.on('keydown', 'search-input', (event) => {
+      this.emit('search-changed-value', event.target.value);
     });
 
-    this._element.addEventListener('keydown', (event) => {
-      const search = this._element.querySelector('.sidebar__search-input');
-      if (search && event.target === search) {
-        onSearchKeyDown(search.value);
-      }
-    })
-
-    this._element.addEventListener('click', (event) => {
-      const sortSelected = this._element.querySelector('[data-element="selected"]');
+    this.on('click', 'selected', () => {
       const dropList = this._element.querySelector('[data-element="dropdown-list"]');
       const selectedImage = this._element.querySelector('[data-element="selected-image"]');
+      dropList.classList.toggle('hide');
+      selectedImage.classList.toggle('rotate');
+    });
 
-      if (sortSelected && event.target.closest('[data-element="selected"]')) {
-        dropList.classList.toggle('hide');
-        selectedImage.classList.toggle('rotate');
-      } else if (event.target.dataset.sort) {
-        onSortChange(event.target.dataset.sort);
-        this._setDropdown(event.target);
-        dropList.classList.toggle('hide');
-        selectedImage.classList.toggle('rotate');
-      }
+    this.on('click', 'sort-item', (event) => {
+      const dropList = this._element.querySelector('[data-element="dropdown-list"]');
+      const selectedImage = this._element.querySelector('[data-element="selected-image"]');
+      this._setDropdown(event.target);
+      dropList.classList.toggle('hide');
+      selectedImage.classList.toggle('rotate');
+      this.emit('catalog-sorted', (event.target.dataset.sortValue));
+
     });
   }
 
@@ -54,7 +34,7 @@ export default class Filter {
     this._element.innerHTML = `
     <div class="sidebar__search-wrapper">
       <label for="">Search</label>
-      <input type="text" class="sidebar__search-input">
+      <input type="text" class="sidebar__search-input" data-element="search-input">
     </div>
     <br>
     <div class="sidebar__sort-wrapper" data-element="sort-wrapper">
@@ -80,7 +60,7 @@ export default class Filter {
       <ul class="sidebar__dropdown-list hide" data-element="dropdown-list">
         ${
           Array.from(sort.children).map(a => `
-            <li class="sidebar__dropdown-item" data-sort="${a.value}">
+            <li class="sidebar__dropdown-item" data-sort-value="${a.value}" data-element="sort-item">
               ${a.innerHTML}
             </li>       
           `).join('')
@@ -89,7 +69,7 @@ export default class Filter {
     `;
 
     const selectedText = this._element.querySelector('[data-element="selected-text"]');
-    const firstOption = this._element.querySelector('[data-sort]');
+    const firstOption = this._element.querySelector('[data-sort-value]');
     selectedText.innerHTML = firstOption.innerHTML;
     selectedText.dataset.selected = firstOption.dataset.sort;
   }

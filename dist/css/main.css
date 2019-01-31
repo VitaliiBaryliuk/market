@@ -80,7 +80,8 @@ body {
   .product__gallery-image {
     margin: 15px;
     width: 15%;
-    height: 15%; }
+    height: 15%;
+    cursor: pointer; }
   .product__buttons {
     display: flex; }
 
@@ -112,6 +113,8 @@ body {
     background-repeat: no-repeat;
     background-position-y: 50%;
     transform: rotate(180deg); }
+  .sidebar__dropdown-wrapper {
+    cursor: pointer; }
   .sidebar__dropdown-item {
     width: 90%;
     padding: 10px;

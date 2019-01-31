@@ -1,3 +1,4 @@
+
 const phones = [
   {
       "age": 0, 
@@ -226,7 +227,16 @@ const PhoneService = {
   },
 
   getById(phoneId) {
-    return phoneDetails;
+    const xhr = new XMLHttpRequest(); 
+    xhr.open('GET', `js/phones-base/${phoneId}.json`, false);
+    xhr.send();
+    
+    if (xhr.status === 200) {
+        return JSON.parse(xhr.responseText);
+    } else {
+        return false;
+    }
+
   }
 }
 

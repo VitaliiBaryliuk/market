@@ -1,33 +1,27 @@
 import Component from '../../component.js'
 
 export default class PhoneViwer extends Component {
-  constructor({ 
-    element,
-    onAddToCart,
-    toCatalog,
-  }) {
+  constructor({ element }) {
     super(element);
     this._element = element;
-    this._onAddToCart = onAddToCart;
-    this._toCatalog = toCatalog;
 
-    this._element.addEventListener('click', (event) => {
-      const toCartButton = this._element.querySelector('[data-element="to-cart"]');
-      const toCatalogButton  = this._element.querySelector('[data-element="to-catalog"]');
+    this.on('click', 'to-catalog', (event) => {
+      this.emit('to-catalog');
+    });
+
+    this.on('click', 'gallery-image', (event) => {
       const mainImage = this._element.querySelector('[data-element="main-image"]');
+      mainImage.src = event.target.src;
+    });
 
-      if (toCartButton && event.target === toCartButton) {
-        let phoneId = toCartButton.closest('[data-phone-id]').dataset.phoneId;
-        onAddToCart(phoneId);
-      } else if (toCatalogButton && event.target === toCatalogButton) {
-        toCatalog();
-      } else if (event.target.dataset.element === 'gallery-image') {
-        mainImage.src = event.target.src;
-      }
+    this.on('click', 'to-cart', (event) => {
+      const phoneItem = event.target.closest('[data-phone-id]');
+      this.emit('add-to-cart', phoneItem.dataset.phoneId);
     });
   }
 
   _render() {
+    window.scrollTo(0, 0);
     this._element.innerHTML = `
       <div class="product__wrapper" data-phone-id="${this._phoneDetails.id}">
         <div class="product__buttons">
@@ -55,8 +49,12 @@ export default class PhoneViwer extends Component {
 
   show(phoneDetails) {
     this._phoneDetails = phoneDetails;
+    if (!phoneDetails) {
+      this._element.innerHTML = `<h2>Sorry, no have such phone</h2>`;
+    } else {
+      this._render();
+    }
 
-    this._render();
     super.show();
   }
 }
