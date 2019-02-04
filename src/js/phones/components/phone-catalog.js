@@ -3,36 +3,24 @@ import Component from '../../component.js';
 export default class PhoneCatalog extends Component {
   constructor({
     element,
-    phones = [],
-    onPhoneSelected = () => {},
-    onAddToCart,
+    phones = []
   }) {
     super({ element });
     this._element = element;
     this._phones = phones;
     this._filtred = phones;
-    this.onPhoneSelected = onPhoneSelected;
-    this._onAddToCart = onAddToCart;
-    this.debounced = this.debounce(this.search, 500);
+    this.searchDebounced = this.debounce(this.search, 500);
 
     this._render();
 
-    this._element.addEventListener('click', (event) => {
-      const detailsLink = event.target.closest('[data-element="details-link"]');
-      const toCart = this._element.querySelector('[data-element="to-cart"]');
-      if (event.target.dataset.element === 'details-link') {
-        if (!detailsLink) {
-          return;
-        }
-        const phoneElement = detailsLink.closest('[data-element="phone-item"');
-        onPhoneSelected(phoneElement.dataset.phoneId);
-      } else if (event.target.dataset.element === 'to-cart') {
-        if (!toCart) {
-          return;
-        }
-        const phoneId = event.target.closest('[data-element="phone-item"]').dataset.phoneId;
-        onAddToCart(phoneId);
-      }
+    this.on('click', 'details-link', (event) => {
+      const phoneItem = event.target.closest('[data-element="phone-item"]');
+      this.emit('phone-selected', phoneItem.dataset.phoneId);
+    });
+
+    this.on('click', 'to-cart', (event) => {
+      const phoneItem = event.target.closest('[data-element="phone-item"]');
+      this.emit('add-to-cart', phoneItem.dataset.phoneId);
     });
   }
 
@@ -43,8 +31,8 @@ export default class PhoneCatalog extends Component {
         <li class="catalog__item" data-phone-id="${phone.id}"  data-element="phone-item">
         <div class="catalog__product">
           <div class="catalog__product-photo-wrapper">
-            <a href="#!phones/${phone.id}" data-element="details-link">
-              <img class="catalog__product-photo" src="${phone.imageUrl}">
+            <a href="#!phones/${phone.id}">
+              <img class="catalog__product-photo" data-element="details-link" src="${phone.imageUrl}">
             </a>
           </div>
           <div class="catalog__product-info">
@@ -58,7 +46,7 @@ export default class PhoneCatalog extends Component {
             </p>
           </div>
           <div class="catalog__button-wrapper">
-          <button class="catalog__to-cart-button" data-element="to-cart">Add</button>
+          <div class="catalog__to-cart-button button to-cart" data-element="to-cart">Add to cart</div>
           </div>
         </div>
       </li>
@@ -86,17 +74,6 @@ export default class PhoneCatalog extends Component {
     const res = this._filtred.filter(a => reg.test(a.name));
     this._phones = res;
     this._render();
-  }
-
-  debounce(f, delay) {
-    let timers = 0;
-
-    return (value) => {
-      clearTimeout(timers);
-      timers = setTimeout(() => {
-        f.call(this, value);
-      }, delay);
-    };
   }
 
 }
