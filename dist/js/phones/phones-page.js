@@ -27,7 +27,7 @@ export default class PhonesPage {
       this._catalog.subscribe(
         'add-to-cart',
         (phoneId) => {
-          this._shoppingCart.toCart(phoneId);
+          this._shoppingCart.AddToCart(phoneId);
       });
 
       this._shoppingCart = new ShoppingCart({
@@ -60,7 +60,7 @@ export default class PhonesPage {
     this._viewer.subscribe(     
       'add-to-cart',
       (phoneId) => {
-      this._shoppingCart.toCart(phoneId);
+      this._shoppingCart.AddToCart(phoneId);
     });
 
     this._viewer.subscribe(     
