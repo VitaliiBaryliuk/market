@@ -1,6 +1,6 @@
 import Component from '../../component.js'
 
-export default class PhoneViwer extends Component {
+export default class PhoneViewer extends Component {
   constructor({ element }) {
     super(element);
     this._element = element;
@@ -30,27 +30,33 @@ export default class PhoneViwer extends Component {
         </div>
         <div class="product__item">
           <div class="product__image-wrapper">
-            <img class="product__image" src="${this._phoneDetails.images[0]}" data-element="main-image">
+            <img
+              class="product__image"
+              src="${this._phoneDetails.images[0]}"
+              data-element="main-image"
+            />
           </div>
           <div class="product__info">
             <div class="product__title"><h2>${this._phoneDetails.name}</h2></div>
-            <hr>
+            <hr />
             <div class="product__description">${this._phoneDetails.description}</div>
             <div class="product__gallery">
-            ${ this._phoneDetails.images.map(item => 
-                `<img class="product__gallery-image" src="${item}" data-element="gallery-image">`
-              ).join('') }
+              ${ this._phoneDetails.images.map(item => `<img
+                class="product__gallery-image"
+                src="${item}"
+                data-element="gallery-image"
+              />` ).join('') }
             </div>
           </div>
         </div>
-      </div>    
+      </div>
     `;
   }
 
   show(phoneDetails) {
     this._phoneDetails = phoneDetails;
     if (!phoneDetails) {
-      this._element.innerHTML = `<h2>Sorry, no have such phone</h2>`;
+      this._element.innerHTML = `<h2>Sorry, a phone is not selected yet</h2>`;
     } else {
       this._render();
     }
