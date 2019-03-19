@@ -18,8 +18,8 @@ const PhoneService = {
     };
   },
   
-  getById(phoneId, callback) {
-    let xhr = new XMLHttpRequest(); 
+  getById: (phoneId, callback) => {
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', `js/phones-base/${phoneId}.json`, true);
     xhr.send();
 
@@ -28,10 +28,10 @@ const PhoneService = {
         return [];
       }
 
-      let phoneDetails = JSON.parse(xhr.responseText);
+      const phoneDetails = JSON.parse(xhr.responseText);
       callback(phoneDetails);
-    }
-  }
-}
+    };
+  },
+};
 
 export default PhoneService;
