@@ -1,12 +1,19 @@
 import Component from '../../component.js'
-
+import Dropdawn from './dropdawn.js';
 
 export default class Filter extends Component {
   constructor({ element }) {
-    super(element);
-    this._element = element;
+    super({ element });
+    
     this._render();
-    this._dropdown();
+
+    this.select = document.querySelector('[data-element="select"]');
+    this.dropdawnWrapper = document.querySelector('[data-element="dropdown-wrapper"]');
+
+    this._dropdown = new Dropdawn({ 
+      select: this.select, 
+      dropdown: this.dropdawnWrapper 
+    });
 
     this.on('keydown', 'search-input', (event) => {
       this.emit('search-changed-value', event.target.value);
@@ -14,15 +21,15 @@ export default class Filter extends Component {
 
     this.on('click', 'selected', () => {
       const dropList = this._element.querySelector('[data-element="dropdown-list"]');
-      const selectedImage = this._element.querySelector('[data-element="selected-image"]');
+      const selectedImage = this._element.querySelector('[data-element="dropdown-arrow"]');
       dropList.classList.toggle('hide');
       selectedImage.classList.toggle('rotate');
     });
 
     this.on('click', 'sort-item', (event) => {
       const dropList = this._element.querySelector('[data-element="dropdown-list"]');
-      const selectedImage = this._element.querySelector('[data-element="selected-image"]');
-      this._setDropdown(event.target);
+      const selectedImage = this._element.querySelector('[data-element="dropdown-arrow"]');
+      this._dropdown._setDropdown(event.target);
       dropList.classList.toggle('hide');
       selectedImage.classList.toggle('rotate');
       this.emit('catalog-sorted', (event.target.dataset.sortValue));
@@ -32,50 +39,19 @@ export default class Filter extends Component {
 
   _render() {
     this._element.innerHTML = `
-    <div class="sidebar__search-wrapper">
-      <label for="">Search</label>
-      <input type="text" class="sidebar__search-input" data-element="search-input">
-    </div>
-    <br>
-    <div class="sidebar__sort-wrapper" data-element="sort-wrapper">
-    <label>Sort by:</label>
-      <select class="sidebar__select hide" data-element="select">
-        <option value="age">Newest</option>
-        <option value="name">Alphabetical</option>
-      </select>
-      <div class="sidebar__dropdown-wrapper" data-element="dropdown-wrapper"></div>
-    </div>
-    `;
-  }
-
-  _dropdown() {
-    const sort = this._element.querySelector('[data-element="select"]');
-    const dropdown = this._element.querySelector('[data-element="dropdown-wrapper"]');
-
-    dropdown.innerHTML = `
-      <div class="sidebar__dropdown-item sidebar__dropdown-selected" data-element="selected">
-        <div data-element="selected-text"></div>
-        <div class="sidebar__selected-image" data-element="selected-image"></div>
+      <div class="sidebar__search-wrapper">
+        <label for="">Search</label>
+        <input type="text" class="sidebar__search-input" data-element="search-input">
       </div>
-      <ul class="sidebar__dropdown-list hide" data-element="dropdown-list">
-        ${
-          Array.from(sort.children).map(a => `
-            <li class="sidebar__dropdown-item" data-sort-value="${a.value}" data-element="sort-item">
-              ${a.innerHTML}
-            </li>       
-          `).join('')
-        }
-      </ul>
+      <br>
+      <div class="sidebar__sort-wrapper" data-element="sort-wrapper">
+        <label>Sort by:</label>
+        <select class="sidebar__select hide" data-element="select">
+          <option value="age">Newest</option>
+          <option value="name">Alphabetical</option>
+        </select>
+        <div class="sidebar__dropdown-wrapper" data-element="dropdown-wrapper"></div>
+      </div>
     `;
-
-    const selectedText = this._element.querySelector('[data-element="selected-text"]');
-    const firstOption = this._element.querySelector('[data-sort-value]');
-    selectedText.innerHTML = firstOption.innerHTML;
-    selectedText.dataset.selected = firstOption.dataset.sort;
-  }
-
-  _setDropdown(clickedElement) {
-    const selectedText = this._element.querySelector('[data-element="selected-text"]');
-    selectedText.innerHTML = clickedElement.innerHTML;
   }
 }

@@ -1,25 +1,25 @@
 const PhoneService = {
-  getAll(callback) {
-    let xhr = new XMLHttpRequest();
+  getAll: (callback) => {
+    const xhr = new XMLHttpRequest();
     xhr.open(
-      'GET', 
-      `https://mate-academy.github.io/phone-catalogue-static/phones/phones.json`,
-      true
+      'GET',
+      'https://vitaliybaryliuk.github.io/phones-file/phones.json',
+      true,
     );
     xhr.send();
-    
+
     xhr.onload = () => {
       if (xhr.status !== 200) {
         return [];
       }
 
-      let phones = JSON.parse(xhr.responseText); 
+      const phones = JSON.parse(xhr.responseText);
       callback(phones);
-    }
+    };
   },
-
-  getById(phoneId, callback) {
-    let xhr = new XMLHttpRequest(); 
+  
+  getById: (phoneId, callback) => {
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', `js/phones-base/${phoneId}.json`, true);
     xhr.send();
 
@@ -28,10 +28,10 @@ const PhoneService = {
         return [];
       }
 
-      let phoneDetails = JSON.parse(xhr.responseText);
+      const phoneDetails = JSON.parse(xhr.responseText);
       callback(phoneDetails);
-    }
-  }
-}
+    };
+  },
+};
 
 export default PhoneService;

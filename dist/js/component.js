@@ -9,19 +9,8 @@ export default class Component {
     this._element.style.display = 'none';
   }
 
-  show(phoneDetails) {
+  show() {
     this._element.style.display = 'flex';
-  }
-
-  debounce(f, delay) {
-    let timers = 0;
-
-    return (value) => {
-      clearTimeout(timers);
-      timers = setTimeout(() => {
-        f.call(this, value);
-      }, delay);
-    };
   }
 
   on(eventName, elementName, callback) {
