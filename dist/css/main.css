@@ -40,7 +40,7 @@ body {
     border: 1px solid #F59922;
     border-radius: 3px; }
   .catalog__product:hover {
-    box-shadow: 0px 0px 5px 5px #96918c; }
+    box-shadow: 0px 0px 5px 3px #96918c; }
   .catalog__product-photo-wrapper {
     width: 200px; }
   .catalog__product-photo {
