@@ -3,7 +3,7 @@ const PhoneService = {
     const xhr = new XMLHttpRequest();
     xhr.open(
       'GET',
-      'https://vitaliybaryliuk.github.io/phones-file/phones.json',
+      'https://mate-academy.github.io/phone-catalogue-static/api/phones.json',
       true,
     );
     xhr.send();
